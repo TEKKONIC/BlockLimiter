@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Timers;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using BlockLimiter.Patch;
@@ -53,6 +54,7 @@ namespace BlockLimiter
         public static IPluginManager PluginManager { get; private set; }
         public string timeDataPath = "";
         private MyConcurrentHashSet<MySlimBlock> _justAdded = new MyConcurrentHashSet<MySlimBlock>();
+        private Timer _recountTimer;
 
         public IMultigridProjectorApi MultigridProjectorApi;
 
@@ -80,6 +82,8 @@ namespace BlockLimiter
         {
             if (!BlockLimiterConfig.Instance.EnableLimits) return;
             UpdateLimits.Enqueue(id);
+            // Log the event
+            MyLog.Default.WriteLine($"Faction created: {id}");
         }
 
         /// <summary>
@@ -112,6 +116,44 @@ namespace BlockLimiter
 
 
         }
+
+        public override void Init(ITorchBase torch)
+        {
+            base.Init(torch);
+            Instance = this;
+            PluginManager = Torch.Managers.GetManager<PluginManager>();
+            Load();
+            _sessionManager = Torch.Managers.GetManager<TorchSessionManager>();
+            if (_sessionManager != null)
+                _sessionManager.SessionStateChanged += SessionChanged;
+
+            // Initialize the timer
+            SetupRecountTimer();
+        }
+
+        private void SetupRecountTimer()
+        {
+            _recountTimer = new Timer(60000); // Set timer interval to 1 minute (60000 milliseconds)
+            _recountTimer.Elapsed += OnRecountTimerElapsed;
+            _recountTimer.AutoReset = true;
+            _recountTimer.Enabled = true;
+        }
+
+        private void OnRecountTimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            // Logic to recount block limits
+            ResetLimits();
+        }
+
+        public static void ResetLimits()
+        {
+            // Implement the logic to reset or recount block limits
+            UpdateLimits.ResetLimits(true, true, true);
+        }
+
+        // Other existing methods...
+    }
+}
         
         /// <summary>
         /// Event to refresh player's faction/player limits to account for change
