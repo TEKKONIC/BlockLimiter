@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|c:\\users\\jonathon\\documents\\github\\blocklimiter\\blocklimiter\\blocklimiter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\blocklimiter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BlockLimiter.cs",
+              "DocumentMoniker": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\BlockLimiter.cs",
+              "RelativeDocumentMoniker": "BlockLimiter\\BlockLimiter.cs",
+              "ToolTip": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\BlockLimiter.cs",
+              "RelativeToolTip": "BlockLimiter\\BlockLimiter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-23T18:10:25.319Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

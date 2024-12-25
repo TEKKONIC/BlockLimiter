@@ -1,43 +1,63 @@
 ﻿using NLog;
 using NLog.Config;
 using NLog.Targets;
+using System;
 
 namespace BlockLimiter.Settings
 {
     public static class LoggingConfig
     {
-
         public static void Set()
         {
-            var rules = LogManager.Configuration.LoggingRules;
-
-
-            for (int i = rules.Count - 1; i >= 0; i--) {
-
-                var rule = rules[i];
-
-                if (rule.LoggerNamePattern != "BlockLimiter")continue;
-                rules.RemoveAt(i);
-            }
-
-            var config = BlockLimiterConfig.Instance;
-
-            if (string.IsNullOrEmpty(config.LogFileName))
+            try
             {
-                LogManager.Configuration.Reload();
-                return;
-            }
+                var config = LogManager.Configuration;
+                if (config == null)
+                {
+                    LogManager.Configuration = new LoggingConfiguration();
+                    config = LogManager.Configuration;
+                }
 
-            var logTarget = new FileTarget
+                var rules = config.LoggingRules;
+                if (rules == null)
+                {
+                    config.LoggingRules = new List<LoggingRule>();
+                    rules = config.LoggingRules;
+                }
+
+                for (int i = rules.Count - 1; i >= 0; i--)
+                {
+                    var rule = rules[i];
+
+                    if (rule.LoggerNamePattern != "BlockLimiter") continue;
+                    rules.RemoveAt(i);
+                }
+
+                var blockLimiterConfig = BlockLimiterConfig.Instance;
+                if (blockLimiterConfig == null || string.IsNullOrEmpty(blockLimiterConfig.LogFileName))
+                {
+                    config.Reload();
+                    return;
+                }
+
+                var logTarget = new FileTarget
+                {
+                    FileName = blockLimiterConfig.LogFileName,
+                    Layout = "${longdate} ${uppercase:${level}} ${message}",
+                    // Add other necessary properties for FileTarget
+                };
+
+                config.AddTarget("file", logTarget);
+                config.LoggingRules.Add(new LoggingRule("BlockLimiter", LogLevel.Debug, logTarget));
+
+                LogManager.Configuration = config;
+                LogManager.ReconfigExistingLoggers();
+            }
+            catch (Exception ex)
             {
-                FileName = "Logs/" + config.LogFileName,
-                Layout ="${var:logStamp} ${var:logContent}"
-            };
-            
-            var fullRule = new LoggingRule("BlockLimiter",LogLevel.Debug, logTarget){Final = true};
-            
-            LogManager.Configuration.LoggingRules.Insert(0,fullRule);
-            LogManager.Configuration.Reload();
+                // Handle or log the exception as needed
+                Console.WriteLine($"Error setting up logging configuration: {ex.Message}");
+            }
         }
     }
 }

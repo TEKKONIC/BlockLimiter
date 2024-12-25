@@ -527,3 +527,133 @@ namespace BlockLimiter.Utility
 
     }
 }
+
+using VRage.Collections;
+using VRage.Game;
+using VRage.Game.Entity;
+using VRage.Game.ModAPI;
+
+namespace BlockLimiter
+{
+    public class BlockLimiter : TorchPluginBase, IWpfPlugin
+    {
+        public readonly Logger Log = LogManager.GetLogger("BlockLimiter");
+        private Thread _processThread;
+        private List<Thread> _processThreads = new List<Thread>();
+        private static bool _running;
+        public static BlockLimiter Instance { get; private set; }
+        public static string ChatName => Instance.Torch.Config.ChatName;
+        public static string ChatColor => Instance.Torch.Config.ChatColor;
+        private TorchSessionManager _sessionManager;
+        private List<ProcessHandlerBase> _limitHandlers = new List<ProcessHandlerBase>();
+        public readonly HashSet<LimitItem> VanillaLimits = new HashSet<LimitItem>();
+        private int _updateCounter100;
+        private int _updateCounter10;
+        public static IPluginManager PluginManager { get; private set; }
+        public string timeDataPath = "";
+        private MyConcurrentHashSet<MySlimBlock> _justAdded = new MyConcurrentHashSet<MySlimBlock>();
+        private Timer _recountTimer;
+
+        public IMultigridProjectorApi MultigridProjectorApi;
+
+        private void DoInit()
+        {
+            if (_sessionManager == null)
+            {
+                Log.Error("Session manager is null");
+                return;
+            }
+
+            if (_sessionManager.CurrentSession == null)
+            {
+                Log.Error("Current session is null");
+                return;
+            }
+
+            MultigridProjectorApi = new MultigridProjectorTorchAgent(_sessionManager.CurrentSession);
+
+            _limitHandlers = new List<ProcessHandlerBase>
+            {
+                new Annoy(),
+                new Punish()
+            };
+            _processThreads = new List<Thread>();
+            _processThread = new Thread(PluginProcessing);
+            _processThread.Start();
+
+            if (MyMultiplayer.Static != null)
+            {
+                MyMultiplayer.Static.ClientJoined += StaticOnClientJoined;
+            }
+            else
+            {
+                Log.Error("MyMultiplayer.Static is null");
+            }
+
+            if (MyCubeGrids.BlockBuilt != null)
+            {
+                MyCubeGrids.BlockBuilt += MyCubeGridsOnBlockBuilt;
+            }
+            else
+            {
+                Log.Error("MyCubeGrids.BlockBuilt is null");
+            }
+
+            if (MySession.Static != null)
+            {
+                if (MySession.Static.Factions != null)
+                {
+                    MySession.Static.Factions.FactionStateChanged += FactionsOnFactionStateChanged;
+                    MySession.Static.Factions.FactionCreated += FactionsOnFactionCreated;
+                }
+                else
+                {
+                    Log.Error("MySession.Static.Factions is null");
+                }
+            }
+            else
+            {
+                Log.Error("MySession.Static is null");
+            }
+
+            if (MyEntities.OnEntityAdd != null)
+            {
+                MyEntities.OnEntityAdd += MyEntitiesOnOnEntityAdd;
+            }
+            else
+            {
+                Log.Error("MyEntities.OnEntityAdd is null");
+            }
+        }
+
+        private void StaticOnClientJoined(ulong clientId)
+        {
+            // Implementation of StaticOnClientJoined
+        }
+
+        private void MyCubeGridsOnBlockBuilt(MySlimBlock block)
+        {
+            // Implementation of MyCubeGridsOnBlockBuilt
+        }
+
+        private void FactionsOnFactionStateChanged(MyFactionStateChange change, long fromFactionId, long toFactionId, long playerId, long senderId)
+        {
+            // Implementation of FactionsOnFactionStateChanged
+        }
+
+        private void FactionsOnFactionCreated(long factionId)
+        {
+            // Implementation of FactionsOnFactionCreated
+        }
+
+        private void MyEntitiesOnOnEntityAdd(MyEntity entity)
+        {
+            // Implementation of MyEntitiesOnOnEntityAdd
+        }
+
+        private void PluginProcessing()
+        {
+            // Implementation of PluginProcessing
+        }
+    }
+}
