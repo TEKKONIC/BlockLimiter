@@ -200,8 +200,7 @@ namespace BlockLimiter
         }
 
         // Other existing methods...
-    }
-}
+
         
         /// <summary>
         /// Event to refresh player's faction/player limits to account for change
@@ -211,6 +210,7 @@ namespace BlockLimiter
         /// <param name="toFaction"></param>
         /// <param name="playerId"></param>
         /// <param name="senderId"></param>
+        
         private void FactionsOnFactionStateChanged(MyFactionStateChange factionState, long fromFaction, long toFaction, long playerId, long senderId)
         {
             if (!BlockLimiterConfig.Instance.EnableLimits || (factionState != MyFactionStateChange.FactionMemberLeave && factionState != MyFactionStateChange.FactionMemberAcceptJoin && factionState != MyFactionStateChange.RemoveFaction
@@ -237,6 +237,7 @@ namespace BlockLimiter
         /// </summary>
         /// <param name="grid"></param>
         /// <param name="block"></param>
+        
         private void MyCubeGridsOnBlockBuilt(MyCubeGrid grid, MySlimBlock block)
         {
             if (grid == null || !BlockLimiterConfig.Instance.EnableLimits) return;
@@ -596,9 +597,5 @@ namespace BlockLimiter
         }
         
         #endregion
-
-        
-    }
-
-
-    }
+   }
+}
