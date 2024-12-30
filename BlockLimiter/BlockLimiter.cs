@@ -55,7 +55,7 @@ namespace BlockLimiter
         public static IPluginManager PluginManager { get; private set; }
         public string timeDataPath = "";
         private MyConcurrentHashSet<MySlimBlock> _justAdded = new MyConcurrentHashSet<MySlimBlock>();
-        private Timer _recountTimer;
+        private System.Timers.Timer _recountTimer;
         public IMultigridProjectorApi MultigridProjectorApi;
         #endregion
 
@@ -94,13 +94,13 @@ namespace BlockLimiter
                 Log.Error("MyMultiplayer.Static is null");
             }
 
-            if (MyCubeGrids.BlockBuilt != null)
+            if (MyCubeGrids.BlockBuilt == null)
             {
-                MyCubeGrids.BlockBuilt += MyCubeGridsOnBlockBuilt;
+                Log.Error("MyCubeGrids.BlockBuilt is null");
             }
             else
             {
-                Log.Error("MyCubeGrids.BlockBuilt is null");
+                MyCubeGrids.BlockBuilt += MyCubeGridsOnBlockBuilt;
             }
 
             if (MySession.Static != null)
@@ -120,48 +120,24 @@ namespace BlockLimiter
                 Log.Error("MySession.Static is null");
             }
 
-            if (MyEntities.OnEntityAdd != null)
-            {
-                MyEntities.OnEntityAdd += MyEntitiesOnOnEntityAdd;
-            }
-            else
+            if (MyEntities.OnEntityAdd == null)
             {
                 Log.Error("MyEntities.OnEntityAdd is null");
             }
-        }
-        #endregion
-
-        #region Event Handlers
-        private void StaticOnClientJoined(ulong clientId)
-        {
-            // Implementation of StaticOnClientJoined
+            else
+            {
+                MyEntities.OnEntityAdd += MyEntitiesOnOnEntityAdd;
+            }
         }
 
-        private void MyCubeGridsOnBlockBuilt(MySlimBlock block)
+        private void FactionsOnFactionCreated(long obj)
         {
-            // Implementation of MyCubeGridsOnBlockBuilt
-        }
-
-        private void FactionsOnFactionStateChanged(MyFactionStateChange change, long fromFactionId, long toFactionId, long playerId, long senderId)
-        {
-            // Implementation of FactionsOnFactionStateChanged
-        }
-
-        private void FactionsOnFactionCreated(long factionId)
-        {
-            // Implementation of FactionsOnFactionCreated
+            throw new NotImplementedException();
         }
 
         private void MyEntitiesOnOnEntityAdd(MyEntity entity)
         {
-            // Implementation of MyEntitiesOnOnEntityAdd
-        }
-        #endregion
-
-        #region Processing
-        private void PluginProcessing()
-        {
-            // Implementation of PluginProcessing
+            throw new NotImplementedException();
         }
         #endregion
 
@@ -181,7 +157,7 @@ namespace BlockLimiter
 
         private void SetupRecountTimer()
         {
-            _recountTimer = new Timer(600000); // Set timer interval to 1 minute (60000 milliseconds)
+            _recountTimer = new System.Timers.Timer(600000); // Set timer interval to 1 minute (60000 milliseconds)
             _recountTimer.Elapsed += OnRecountTimerElapsed;
             _recountTimer.AutoReset = true;
             _recountTimer.Enabled = true;
