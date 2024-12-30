@@ -45,9 +45,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\TorchBinaries\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
+      <Aliases>global</Aliases>
     </Reference>
     <Reference Include="NLog">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Tools\VRageEditor\Plugins\VisualScripting\NLog.dll</HintPath>
+      <HintPath>..\GameBinaries\NLog.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />

@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\BlockLimiter"
   ],
-  "SelectedNode": "\\BlockLimiter.sln (BlockLimiter.sln)",
+  "SelectedNode": "\\BlockLimiter.sln",
   "PreviewInSolutionExplorer": false
 }

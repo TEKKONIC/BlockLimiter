@@ -15,7 +15,3 @@ C:\Users\Olatide\Sync\ProgramFiles\VisualStudio\source\repos\BlockLimiter\BlockL
 D:\Sync\ProgramFiles\VisualStudio\source\repos\BlockLimiter\BlockLimiter\obj\Debug\BlockLimiter.csproj.CoreCompileInputs.cache
 D:\Sync\ProgramFiles\VisualStudio\source\repos\BlockLimiter\BlockLimiter\bin\Debug\manifest.xml
 D:\Sync\ProgramFiles\VisualStudio\source\repos\BlockLimiter\BlockLimiter\obj\Debug\BlockLimiter.csproj.AssemblyReference.cache
-C:\Users\jonathon\Documents\GitHub\BlockLimiter\BlockLimiter\obj\Debug\BlockLimiter.csproj.AssemblyReference.cache
-C:\Users\jonathon\Documents\GitHub\BlockLimiter\BlockLimiter\obj\Debug\BlockLimiter.csproj.CoreCompileInputs.cache
-C:\Users\jonathon\Documents\GitHub\BlockLimiter\BlockLimiter\obj\Debug\BlockLimiter.dll
-C:\Users\jonathon\Documents\GitHub\BlockLimiter\BlockLimiter\obj\Debug\BlockLimiter.pdb
