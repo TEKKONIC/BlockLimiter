@@ -5,6 +5,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|c:\\users\\jonathon\\documents\\github\\blocklimiter\\blocklimiter\\blocklimiter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\blocklimiter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\blocklimiter\\settings\\playertimemodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\settings\\playertimemodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -24,10 +28,22 @@
               "RelativeDocumentMoniker": "BlockLimiter\\BlockLimiter.cs",
               "ToolTip": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\BlockLimiter.cs",
               "RelativeToolTip": "BlockLimiter\\BlockLimiter.cs",
-              "ViewState": "AgIAAKoBAAAAAAAAAAAAAKoBAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAJwBAAAAAAAAAAAAAK8BAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-23T18:10:25.319Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PlayerTimeModule.cs",
+              "DocumentMoniker": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Settings\\PlayerTimeModule.cs",
+              "RelativeDocumentMoniker": "BlockLimiter\\Settings\\PlayerTimeModule.cs",
+              "ToolTip": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Settings\\PlayerTimeModule.cs",
+              "RelativeToolTip": "BlockLimiter\\Settings\\PlayerTimeModule.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-30T13:17:46.831Z"
             },
             {
               "$type": "Bookmark",
