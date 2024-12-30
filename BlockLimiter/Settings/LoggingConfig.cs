@@ -9,55 +9,35 @@ namespace BlockLimiter.Settings
     {
         public static void Set()
         {
-            try
-            {
-                var config = LogManager.Configuration;
-                if (config == null)
-                {
-                    LogManager.Configuration = new LoggingConfiguration();
-                    config = LogManager.Configuration;
-                }
+            var rules = LogManager.Configuration.LoggingRules;
 
-                var rules = config.LoggingRules;
-                if (rules == null)
-                {
-                    config.LoggingRules = new List<LoggingRule>();
-                    rules = config.LoggingRules;
-                }
 
-                for (int i = rules.Count - 1; i >= 0; i--)
-                {
-                    var rule = rules[i];
+            for (int i = rules.Count - 1; i >= 0; i--) {
 
-                    if (rule.LoggerNamePattern != "BlockLimiter") continue;
-                    rules.RemoveAt(i);
-                }
+                var rule = rules[i];
 
-                var blockLimiterConfig = BlockLimiterConfig.Instance;
-                if (blockLimiterConfig == null || string.IsNullOrEmpty(blockLimiterConfig.LogFileName))
-                {
-                    config.Reload();
-                    return;
-                }
-
-                var logTarget = new FileTarget
-                {
-                    FileName = blockLimiterConfig.LogFileName,
-                    Layout = "${longdate} ${uppercase:${level}} ${message}",
-                    // Add other necessary properties for FileTarget
-                };
-
-                config.AddTarget("file", logTarget);
-                config.LoggingRules.Add(new LoggingRule("BlockLimiter", LogLevel.Debug, logTarget));
-
-                LogManager.Configuration = config;
-                LogManager.ReconfigExistingLoggers();
+                if (rule.LoggerNamePattern != "BlockLimiter")continue;
+                rules.RemoveAt(i);
             }
-            catch (Exception ex)
+
+            var config = BlockLimiterConfig.Instance;
+
+            if (string.IsNullOrEmpty(config.LogFileName))
             {
-                // Handle or log the exception as needed
-                Console.WriteLine($"Error setting up logging configuration: {ex.Message}");
+                LogManager.Configuration.Reload();
+                return;
             }
+
+            var logTarget = new FileTarget
+            {
+                FileName = "Logs/" + config.LogFileName,
+                Layout ="${var:logStamp} ${var:logContent}"
+            };
+            
+            var fullRule = new LoggingRule("BlockLimiter",LogLevel.Debug, logTarget){Final = true};
+            
+            LogManager.Configuration.LoggingRules.Insert(0,fullRule);
+            LogManager.Configuration.Reload();
         }
     }
 }

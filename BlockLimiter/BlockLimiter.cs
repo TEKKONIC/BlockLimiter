@@ -62,18 +62,6 @@ namespace BlockLimiter
         #region Initialization
         private void DoInit()
         {
-            if (_sessionManager == null)
-            {
-                Log.Error("Session manager is null");
-                return;
-            }
-
-            if (_sessionManager.CurrentSession == null)
-            {
-                Log.Error("Current session is null");
-                return;
-            }
-
             MultigridProjectorApi = new MultigridProjectorTorchAgent(_sessionManager.CurrentSession);
 
             _limitHandlers = new List<ProcessHandlerBase>
@@ -84,50 +72,12 @@ namespace BlockLimiter
             _processThreads = new List<Thread>();
             _processThread = new Thread(PluginProcessing);
             _processThread.Start();
-
-            if (MyMultiplayer.Static != null)
-            {
-                MyMultiplayer.Static.ClientJoined += StaticOnClientJoined;
-            }
-            else
-            {
-                Log.Error("MyMultiplayer.Static is null");
-            }
-
-            if (MyCubeGrids.BlockBuilt == null)
-            {
-                Log.Error("MyCubeGrids.BlockBuilt is null");
-            }
-            else
-            {
-                MyCubeGrids.BlockBuilt += MyCubeGridsOnBlockBuilt;
-            }
-
-            if (MySession.Static != null)
-            {
-                if (MySession.Static.Factions != null)
-                {
-                    MySession.Static.Factions.FactionStateChanged += FactionsOnFactionStateChanged;
-                    MySession.Static.Factions.FactionCreated += FactionsOnFactionCreated;
-                }
-                else
-                {
-                    Log.Error("MySession.Static.Factions is null");
-                }
-            }
-            else
-            {
-                Log.Error("MySession.Static is null");
-            }
-
-            if (MyEntities.OnEntityAdd == null)
-            {
-                Log.Error("MyEntities.OnEntityAdd is null");
-            }
-            else
-            {
-                MyEntities.OnEntityAdd += MyEntitiesOnOnEntityAdd;
-            }
+            
+            MyMultiplayer.Static.ClientJoined += StaticOnClientJoined;
+            MyCubeGrids.BlockBuilt += MyCubeGridsOnBlockBuilt;
+            MySession.Static.Factions.FactionStateChanged += FactionsOnFactionStateChanged;
+            MySession.Static.Factions.FactionCreated += FactionsOnFactionCreated;
+            MyEntities.OnEntityAdd += MyEntitiesOnOnEntityAdd;
         }
 
         private void FactionsOnFactionCreated(long obj)
@@ -343,20 +293,6 @@ namespace BlockLimiter
                     Log.Error(ex);
             }
         }
-
-        public override void Init(ITorchBase torch)
-        {
-            base.Init(torch);
-            Instance = this;
-            PluginManager = Torch.Managers.GetManager<PluginManager>();
-            Load();
-            _sessionManager = Torch.Managers.GetManager<TorchSessionManager>();
-            if (_sessionManager != null)
-                _sessionManager.SessionStateChanged += SessionChanged;
-
-        }
-
-
 
         public override void Update()
         {
