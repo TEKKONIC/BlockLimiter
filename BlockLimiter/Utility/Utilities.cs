@@ -29,7 +29,7 @@ namespace BlockLimiter.Utility
     public static class Utilities
     {
         [ReflectedStaticMethod(Type = typeof(MyCubeBuilder), Name = "SpawnGridReply", OverrideTypes = new []{typeof(bool), typeof(ulong)})]
-        private static Action<bool, ulong> _spawnGridReply;
+        private static Action<bool, ulong> _spawnGridReply = (success, id) => { /* default implementation */ };
 
 
         public static string GetMessage(string msg, List<string> blockList, string limitName, int count = 1)

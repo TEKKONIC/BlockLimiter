@@ -34,9 +34,11 @@ namespace BlockLimiter.Patch
             typeof(MyCubeGrid).GetMethod("TryPasteGrid_Implementation", BindingFlags.Static | BindingFlags.Public);
 
         #if DEBUG
+        #pragma warning disable CS0169
         [ReflectedGetter(Name = "Definition",
             TypeName = "Sandbox.Game.Entities.MyCubeBuilder+GridSpawnRequestData, Sandbox.Game")]
         private static Func<object, DefinitionIdBlit> _getDefinition;
+        #pragma warning disable CS0169
         #endif
         
         public static void Patch(PatchContext ctx)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Xml.Serialization;
 using BlockLimiter.Utility;
@@ -18,7 +19,9 @@ namespace BlockLimiter.Settings
         private bool _enable;
         private static BlockLimiterConfig _instance;
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
-        private XmlAttributeOverrides _overrides;
+        #pragma warning disable CS0649
+        private XmlAttributeOverrides _overrides; // Not used
+        #pragma warning disable CS0649
         
         [XmlIgnore]
         public HashSet<LimitItem> AllLimits = new HashSet<LimitItem>();
@@ -53,6 +56,8 @@ namespace BlockLimiter.Settings
         private string _serverName = BlockLimiter.ChatName;
         private string _annoyMsg = "You're in violation of set limits.  Use [!blocklimit mylimit] to view which limits you've exceeded";
         private int _punishInterval = 900;
+        private bool _Recountenable;
+        private int _RecountTimer = 60000;
         private int _maxBlockSizeShips = 0;
         private int _maxBlockSizeStations = 0;
         private int _maxBlocksSmallGrid = 0;
@@ -72,6 +77,36 @@ namespace BlockLimiter.Settings
         private int _maxLargeGrids = 0;
         private BlockingType _blockingType = BlockingType.None;
 
+
+        #region BlockLimiter Recount Timer
+
+        [Display(Order = 1, Name = "Enable/Disable Active Limiter", GroupName = "*BlockLimiter Recount Timer")]
+        public bool EnableRecountTimer
+        {
+            get => _Recountenable;
+            set
+            {
+                _Recountenable = value;
+                Changed();
+                if (value && MyAPIGateway.Session != null)
+                {
+                    BlockLimiter.Instance.Activate();
+                }
+            }
+        }
+
+        [Display(Order = 2, Name = "Recount Timer Interval", GroupName = "*BlockLimiter Recount Timer",  Description = "Set the interval for the timer in mili seconds")]
+        public int recountTimerInterval
+        {
+            get => _RecountTimer;
+            set
+            {
+                _RecountTimer = Math.Max(10,value);
+                Changed(); 
+            }
+        }
+
+        #endregion
 
         #region General BlockCount Limit
 
@@ -165,8 +200,7 @@ namespace BlockLimiter.Settings
                 Changed();
             }
         }
-
-
+        
         #endregion
 
         #region Main Settings
@@ -266,6 +300,7 @@ namespace BlockLimiter.Settings
                 Changed();
             }
         }
+        
         #endregion
 
         #region Blocking Functions
