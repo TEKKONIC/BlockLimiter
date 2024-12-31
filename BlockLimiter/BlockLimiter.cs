@@ -55,8 +55,10 @@ namespace BlockLimiter
         public static IPluginManager PluginManager { get; private set; }
         public string timeDataPath = "";
         private MyConcurrentHashSet<MySlimBlock> _justAdded = new MyConcurrentHashSet<MySlimBlock>();
-        private System.Timers.Timer _recountTimer;
+        
         public IMultigridProjectorApi MultigridProjectorApi;
+        
+        private RecountTimer _recountTimer; 
         #endregion
 
         #region Initialization
@@ -78,56 +80,46 @@ namespace BlockLimiter
             MySession.Static.Factions.FactionStateChanged += FactionsOnFactionStateChanged;
             MySession.Static.Factions.FactionCreated += FactionsOnFactionCreated;
             MyEntities.OnEntityAdd += MyEntitiesOnOnEntityAdd;
+
+            _recountTimer = new RecountTimer(); // this starts the timer
         }
 
         private void FactionsOnFactionCreated(long obj)
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// Adds newly added grids to cache and update count to meet change
+        /// </summary>
+        /// <param name="entity"></param>
         private void MyEntitiesOnOnEntityAdd(MyEntity entity)
         {
-            throw new NotImplementedException();
+            if (!BlockLimiterConfig.Instance.EnableLimits) return;
+
+            if (!(entity is MyCubeGrid grid)) return;
+
+            if (grid.Projector != null) return;
+            // Do Not Add to grid cache at this point to allow MyCubeGridsOnBlockBuild to add and prevent double counts
+            var blocks = grid.CubeBlocks;
+            GridCache.AddGrid(grid);
+            foreach (var block in blocks)
+            {
+                if (_justAdded.Contains(block))
+                {
+                    _justAdded.Remove(block);
+                    continue;
+                }
+                _justAdded.Add(block);
+                Block.IncreaseCount(block.BlockDefinition,
+                    block.BuiltBy == block.OwnerId
+                        ? new List<long> {block.BuiltBy}
+                        : new List<long> {block.BuiltBy, block.OwnerId}, 1, grid.EntityId);
+            }
+
+
         }
         #endregion
 
-        public override void Init(ITorchBase torch)
-        {
-            base.Init(torch);
-            Instance = this;
-            PluginManager = Torch.Managers.GetManager<PluginManager>();
-            Load();
-            _sessionManager = Torch.Managers.GetManager<TorchSessionManager>();
-            if (_sessionManager != null)
-                _sessionManager.SessionStateChanged += SessionChanged;
-
-            // Initialize the timer
-            SetupRecountTimer();
-        }
-
-        private void SetupRecountTimer()
-        {
-            _recountTimer = new System.Timers.Timer(600000); // Set timer interval to 1 minute (60000 milliseconds)
-            _recountTimer.Elapsed += OnRecountTimerElapsed;
-            _recountTimer.AutoReset = true;
-            _recountTimer.Enabled = true;
-        }
-
-        private void OnRecountTimerElapsed(object sender, ElapsedEventArgs e)
-        {
-            // Logic to recount block limits
-            ResetLimits();
-        }
-
-        public static void ResetLimits()
-        {
-            // Implement the logic to reset or recount block limits
-            UpdateLimits.ResetLimits(true, true, true);
-        }
-
-        // Other existing methods...
-
-        
         /// <summary>
         /// Event to refresh player's faction/player limits to account for change
         /// </summary>
@@ -294,6 +286,18 @@ namespace BlockLimiter
             }
         }
 
+        public override void Init(ITorchBase torch)
+        {
+            base.Init(torch);
+            Instance = this;
+            PluginManager = Torch.Managers.GetManager<PluginManager>();
+            Load();
+            _sessionManager = Torch.Managers.GetManager<TorchSessionManager>();
+            if (_sessionManager != null)
+                _sessionManager.SessionStateChanged += SessionChanged;
+
+        }
+
         public override void Update()
         {
             base.Update();
@@ -349,8 +353,10 @@ namespace BlockLimiter
                     {
                         Activate(); 
                     }
+                    _recountTimer.Start();
                     break;
                 case TorchSessionState.Unloading:
+                    _recountTimer.Stop();
                     break;
                 default:
                     return;
@@ -409,6 +415,7 @@ namespace BlockLimiter
                 foreach (var thread in _processThreads)
                     thread.Abort();
                 _processThread.Abort();
+                _recountTimer.Stop();
             }
             catch (Exception e)
             {

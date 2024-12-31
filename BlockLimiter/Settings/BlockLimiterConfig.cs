@@ -81,7 +81,7 @@ namespace BlockLimiter.Settings
         #region BlockLimiter Recount Timer
 
         [Display(Order = 1, Name = "Enable/Disable Active Limiter", GroupName = "*BlockLimiter Recount Timer")]
-        public bool EnableRecountTimer
+        public bool IsRecountTimerEnabled
         {
             get => _Recountenable;
             set
