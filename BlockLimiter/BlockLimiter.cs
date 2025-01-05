@@ -34,6 +34,7 @@ using VRage.Collections;
 using VRage.Game;
 using VRage.Game.Entity;
 using VRage.Game.ModAPI;
+using Nexus.API;
 
 namespace BlockLimiter
 {
@@ -58,7 +59,9 @@ namespace BlockLimiter
         
         public IMultigridProjectorApi MultigridProjectorApi;
         
-        private RecountTimer _recountTimer; 
+        private RecountTimer _recountTimer;
+
+        private NexusSync _nexusSync;
         #endregion
 
         #region Initialization
@@ -296,8 +299,11 @@ namespace BlockLimiter
             if (_sessionManager != null)
                 _sessionManager.SessionStateChanged += SessionChanged;
 
+            if (BlockLimiterConfig.Instance.IsNexusSyncEnabled)
+            {
+                _nexusSync = new NexusSync();
+            }
         }
-
         public override void Update()
         {
             base.Update();
@@ -382,6 +388,7 @@ namespace BlockLimiter
 
                 }
                 ResetLimits(true,false,false);
+                _nexusSync?.SyncBlockLimits();
             });
         }
         private static void Load()

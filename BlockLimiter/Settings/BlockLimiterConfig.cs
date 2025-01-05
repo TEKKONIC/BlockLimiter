@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Xml.Serialization;
+using System.Linq;
 using BlockLimiter.Utility;
 using Torch;
 using Torch.Views;
@@ -47,6 +48,23 @@ namespace BlockLimiter.Settings
             }
         }
 
+        [XmlIgnore]
+        public List<LimitItem> BlockLimits
+        {
+            get => _limitItems.ToList();
+            set
+            {
+                _limitItems.Clear();
+                foreach (var item in value)
+                {
+                    _limitItems.Add(item);
+                }
+                OnPropertyChanged();
+                Save();
+                
+            }
+        }
+
 
         private bool _loading;
         private bool _vanillaLimits;
@@ -56,6 +74,7 @@ namespace BlockLimiter.Settings
         private string _serverName = BlockLimiter.ChatName;
         private string _annoyMsg = "You're in violation of set limits.  Use [!blocklimit mylimit] to view which limits you've exceeded";
         private int _punishInterval = 900;
+        private bool _nexusSync;
         private bool _Recountenable;
         private int _RecountTimer = 60000;
         private int _maxBlockSizeShips = 0;
@@ -76,7 +95,26 @@ namespace BlockLimiter.Settings
         private int _maxSmallGrids = 0;
         private int _maxLargeGrids = 0;
         private BlockingType _blockingType = BlockingType.None;
+        
 
+
+        #region Nexus Instance Sync
+
+        [Display(Order = 1, Name = "Enable/Disable Nexus Sync", GroupName = "*BlockLimiter Nexus Sync" , Description = "Enables syncing block limits with Nexus")]
+        public bool IsNexusSyncEnabled 
+        { 
+            
+            get => _nexusSync; 
+            set 
+            { 
+                _nexusSync = value; 
+                Changed(); 
+            }
+            
+        }
+       
+
+        #endregion
 
         #region BlockLimiter Recount Timer
 
@@ -95,13 +133,13 @@ namespace BlockLimiter.Settings
             }
         }
 
-        [Display(Order = 2, Name = "Recount Timer Interval", GroupName = "*BlockLimiter Recount Timer",  Description = "Set the interval for the timer in mili seconds")]
+        [Display(Order = 2, Name = "Recount Timer Interval", GroupName = "*BlockLimiter Recount Timer",  Description = "Set the interval for the timer in miliseconds - Mininium interval is 15 minutes (900000 miliseconds)")]
         public int recountTimerInterval
         {
             get => _RecountTimer;
             set
             {
-                _RecountTimer = Math.Max(10,value);
+                _RecountTimer = Math.Max(900000,value);
                 Changed(); 
             }
         }
@@ -233,7 +271,7 @@ namespace BlockLimiter.Settings
         }
 
 
-        [Display(Order = 3, GroupName = "*Main Settings", Name = "ShutOff UnOwned Blocks", Description = "Turns off any blocks that becomes UnOwned except power blocks, button panels and parachutes")]
+        [Display(Order = 3, GroupName = "*Main Settings", Name = "Shutoff Unowned Blocks", Description = "Turns off any blocks that becomes UnOwned except power blocks, button panels and parachutes")]
         public bool KillNoOwnerBlocks
         {
             get => _killNoOwnerBlocks;
