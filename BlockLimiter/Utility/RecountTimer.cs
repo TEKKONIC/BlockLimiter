@@ -27,14 +27,13 @@ namespace BlockLimiter
             _recountTimer.Enabled = BlockLimiterConfig.Instance.IsRecountTimerEnabled;
         }
 
-
         private void OnRecountTimerElapsed(object sender, ElapsedEventArgs e)
         {
             BlockLimiter.ResetLimits();
-             if (BlockLimiterConfig.Instance.IsNexusSyncEnabled)
+            if (BlockLimiterConfig.Instance.IsNexusSupportEnabled)
             {
-            var nexusSync = new NexusSync();
-            nexusSync.SyncBlockLimits();
+                var nexusSupport = new NexusSupport();
+                nexusSupport.SyncBlockLimits();
             }
         }
 

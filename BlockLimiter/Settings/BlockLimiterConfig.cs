@@ -34,9 +34,12 @@ namespace BlockLimiter.Settings
         }
 
 
-        public static BlockLimiterConfig Instance => _instance ?? (_instance = new BlockLimiterConfig());
+        public static BlockLimiterConfig Instance { get; } = new BlockLimiterConfig();
+        public bool EnableNexus { get; set; }
+        public bool NexusSupportEnabled { get; set; }
 
         [Display(EditorType = typeof(EmbeddedCollectionEditor))]
+
         public MtObservableCollection<LimitItem> LimitItems
         {
             get => _limitItems;
@@ -74,7 +77,7 @@ namespace BlockLimiter.Settings
         private string _serverName = BlockLimiter.ChatName;
         private string _annoyMsg = "You're in violation of set limits.  Use [!blocklimit mylimit] to view which limits you've exceeded";
         private int _punishInterval = 900;
-        private bool _nexusSync;
+        private bool _nexusSupport;
         private bool _Recountenable;
         private int _RecountTimer = 60000;
         private int _maxBlockSizeShips = 0;
@@ -101,13 +104,13 @@ namespace BlockLimiter.Settings
         #region Nexus Instance Sync
 
         [Display(Order = 1, Name = "Enable/Disable Nexus Sync", GroupName = "*BlockLimiter Nexus Sync" , Description = "Enables syncing block limits with Nexus")]
-        public bool IsNexusSyncEnabled 
+        public bool IsNexusSupportEnabled 
         { 
             
-            get => _nexusSync; 
+            get => _nexusSupport; 
             set 
             { 
-                _nexusSync = value; 
+                _nexusSupport = value; 
                 Changed(); 
             }
             
@@ -448,6 +451,8 @@ namespace BlockLimiter.Settings
             }
         }
 
+        public ushort SocketID { get; internal set; }
+
         #endregion
 
         #region Loading and Saving
@@ -575,4 +580,5 @@ namespace BlockLimiter.Settings
         }
 
     }
+
 }

@@ -66,25 +66,61 @@
       <HintPath>..\NexusBinaries\Nexus.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
-      <HintPath>C:\Users\jonathon\Documents\GitHub\BlockLimiter\GameBinaries\NLog.dll</HintPath>
+      <HintPath>..\GameBinaries\NLog.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="ProtoBuf.Net">
+      <HintPath>..\..\..\SEToolbox\ProtoBuf.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ProtoBuf.Net.Core">
+      <HintPath>..\..\..\SEToolbox\ProtoBuf.Net.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Sandbox.Common">
       <HintPath>..\GameBinaries\Sandbox.Common.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sandbox.Game">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Tools\VRageEditor\Plugins\VisualScripting\Sandbox.Game.dll</HintPath>
+      <HintPath>..\GameBinaries\Sandbox.Game.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sandbox.Game.XmlSerializers">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Tools\VRageEditor\Plugins\VisualScripting\Sandbox.Game.XmlSerializers.dll</HintPath>
+      <HintPath>..\GameBinaries\Sandbox.Game.XmlSerializers.dll</HintPath>
     </Reference>
     <Reference Include="Sandbox.Graphics">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Tools\VRageEditor\Plugins\VisualScripting\Sandbox.Graphics.dll</HintPath>
+      <HintPath>..\GameBinaries\Sandbox.Graphics.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Sandbox.RenderDirect">
+      <HintPath>..\GameBinaries\Sandbox.RenderDirect.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX">
+      <HintPath>..\GameBinaries\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.D3DCompiler">
+      <HintPath>..\GameBinaries\SharpDX.D3DCompiler.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Desktop">
+      <HintPath>..\GameBinaries\SharpDX.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D11">
+      <HintPath>..\GameBinaries\SharpDX.Direct3D11.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DirectInput">
+      <HintPath>..\GameBinaries\SharpDX.DirectInput.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DXGI">
+      <HintPath>..\GameBinaries\SharpDX.DXGI.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.XInput">
+      <HintPath>..\GameBinaries\SharpDX.XInput.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.Core">
+      <HintPath>..\GameBinaries\SixLabors.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.ImageSharp">
+      <HintPath>..\GameBinaries\SixLabors.ImageSharp.dll</HintPath>
     </Reference>
     <Reference Include="SpaceEngineers.Game">
       <HintPath>..\GameBinaries\SpaceEngineers.Game.dll</HintPath>
@@ -95,7 +131,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="SpaceEngineers.ObjectBuilders.XmlSerializers">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Tools\VRageEditor\Plugins\VisualScripting\SpaceEngineers.ObjectBuilders.XmlSerializers.dll</HintPath>
+      <HintPath>..\GameBinaries\SpaceEngineers.ObjectBuilders.XmlSerializers.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -121,19 +157,28 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="VRage">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Tools\VRageEditor\Bin\VRage.dll</HintPath>
+      <HintPath>..\GameBinaries\VRage.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="VRage.Ansel">
+      <HintPath>..\GameBinaries\VRage.Ansel.dll</HintPath>
     </Reference>
     <Reference Include="VRage.Audio">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Tools\VRageEditor\Bin\VRage.Audio.dll</HintPath>
+      <HintPath>..\GameBinaries\VRage.Audio.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="VRage.EOS">
+      <HintPath>..\GameBinaries\VRage.EOS.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.EOS.XmlSerializers">
+      <HintPath>..\GameBinaries\VRage.EOS.XmlSerializers.dll</HintPath>
+    </Reference>
     <Reference Include="VRage.Game">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Tools\VRageEditor\Bin\VRage.Game.dll</HintPath>
+      <HintPath>..\GameBinaries\VRage.Game.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VRage.Game.XmlSerializers">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Tools\VRageEditor\Bin\VRage.Game.XmlSerializers.dll</HintPath>
+      <HintPath>..\GameBinaries\VRage.Game.XmlSerializers.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VRage.Input">
@@ -145,44 +190,47 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="VRage.Math">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Tools\VRageEditor\Bin\VRage.Math.dll</HintPath>
+      <HintPath>..\GameBinaries\VRage.Math.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VRage.Math.XmlSerializers">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Tools\VRageEditor\Bin\VRage.Math.XmlSerializers.dll</HintPath>
+      <HintPath>..\GameBinaries\VRage.Math.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Mod.Io">
+      <HintPath>..\GameBinaries\VRage.Mod.Io.dll</HintPath>
     </Reference>
     <Reference Include="VRage.NativeAftermath">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Tools\VRageEditor\Bin\VRage.NativeAftermath.dll</HintPath>
+      <HintPath>..\GameBinaries\VRage.NativeAftermath.dll</HintPath>
     </Reference>
     <Reference Include="VRage.NativeWrapper">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Tools\VRageEditor\Bin\VRage.NativeWrapper.dll</HintPath>
+      <HintPath>..\GameBinaries\VRage.NativeWrapper.dll</HintPath>
     </Reference>
     <Reference Include="VRage.Network">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Tools\VRageEditor\Bin\VRage.Network.dll</HintPath>
+      <HintPath>..\GameBinaries\VRage.Network.dll</HintPath>
     </Reference>
     <Reference Include="VRage.Platform.Windows">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Tools\VRageEditor\Bin\VRage.Platform.Windows.dll</HintPath>
+      <HintPath>..\GameBinaries\VRage.Platform.Windows.dll</HintPath>
     </Reference>
     <Reference Include="VRage.Render">
       <HintPath>..\GameBinaries\VRage.Render.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VRage.Render11">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Bin64\VRage.Render11.dll</HintPath>
+      <HintPath>..\GameBinaries\VRage.Render11.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VRage.Scripting">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Bin64\VRage.Scripting.dll</HintPath>
+      <HintPath>..\GameBinaries\VRage.Scripting.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VRage.Steam">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Bin64\VRage.Steam.dll</HintPath>
+      <HintPath>..\GameBinaries\VRage.Steam.dll</HintPath>
     </Reference>
     <Reference Include="VRage.UserInterface">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Bin64\VRage.UserInterface.dll</HintPath>
+      <HintPath>..\GameBinaries\VRage.UserInterface.dll</HintPath>
     </Reference>
     <Reference Include="VRage.XmlSerializers">
-      <HintPath>D:\SteamLibrary\steamapps\common\SpaceEngineers\Bin64\VRage.XmlSerializers.dll</HintPath>
+      <HintPath>..\GameBinaries\VRage.XmlSerializers.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -212,7 +260,7 @@
     <Compile Include="Utility\GridCache.cs" />
     <Compile Include="Settings\LimitItem.cs" />
     <Compile Include="Utility\MTObservableCollection.cs" />
-    <Compile Include="Utility\NexusSync.cs" />
+    <Compile Include="Utility\NexusSupport.cs" />
     <Compile Include="Utility\RecountTimer.cs" />
     <Compile Include="Utility\UpdateLimits.cs" />
     <Compile Include="Utility\Utilities.cs" />
@@ -222,7 +270,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\filter.targets" />
+  <Import Project="C:\Users\jonat\Documents\GitHub\BlockLimiter\BlockLimiter\filter.targets" />
   <ItemGroup>
     <Content Include="$(ProjectDir)\manifest.xml" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\.idea\.idea.BlockLimiter\.idea\.gitignore">

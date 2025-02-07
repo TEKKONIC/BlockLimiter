@@ -61,7 +61,7 @@ namespace BlockLimiter
         
         private RecountTimer _recountTimer;
 
-        private NexusSync _nexusSync;
+        private NexusSupport _nexusSupport;
         #endregion
 
         #region Initialization
@@ -299,9 +299,9 @@ namespace BlockLimiter
             if (_sessionManager != null)
                 _sessionManager.SessionStateChanged += SessionChanged;
 
-            if (BlockLimiterConfig.Instance.IsNexusSyncEnabled)
+            if (BlockLimiterConfig.Instance.IsNexusSupportEnabled)
             {
-                _nexusSync = new NexusSync();
+                _nexusSupport = new NexusSupport();
             }
         }
         public override void Update()
@@ -388,7 +388,7 @@ namespace BlockLimiter
 
                 }
                 ResetLimits(true,false,false);
-                _nexusSync?.SyncBlockLimits();
+                _nexusSupport?.SyncBlockLimits();
             });
         }
         private static void Load()

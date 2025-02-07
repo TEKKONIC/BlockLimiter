@@ -22,3 +22,10 @@ C:\Users\jonathon\Documents\GitHub\BlockLimiter\BlockLimiter\bin\Debug\BlockLimi
 C:\Users\jonathon\Documents\GitHub\BlockLimiter\BlockLimiter\bin\Debug\BlockLimiter.pdb
 C:\Users\jonathon\Documents\GitHub\BlockLimiter\BlockLimiter\obj\Debug\BlockLimiter.dll
 C:\Users\jonathon\Documents\GitHub\BlockLimiter\BlockLimiter\obj\Debug\BlockLimiter.pdb
+C:\Users\jonat\Documents\GitHub\BlockLimiter\BlockLimiter\obj\Debug\BlockLimiter.csproj.AssemblyReference.cache
+C:\Users\jonat\Documents\GitHub\BlockLimiter\BlockLimiter\obj\Debug\BlockLimiter.csproj.CoreCompileInputs.cache
+C:\Users\jonat\Documents\GitHub\BlockLimiter\BlockLimiter\bin\Debug\manifest.xml
+C:\Users\jonat\Documents\GitHub\BlockLimiter\BlockLimiter\bin\Debug\BlockLimiter.dll
+C:\Users\jonat\Documents\GitHub\BlockLimiter\BlockLimiter\bin\Debug\BlockLimiter.pdb
+C:\Users\jonat\Documents\GitHub\BlockLimiter\BlockLimiter\obj\Debug\BlockLimiter.dll
+C:\Users\jonat\Documents\GitHub\BlockLimiter\BlockLimiter\obj\Debug\BlockLimiter.pdb
