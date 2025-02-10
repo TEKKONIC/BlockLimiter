@@ -1,34 +1,37 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\",
+  "WorkspaceRootPath": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|c:\\users\\jonat\\documents\\github\\blocklimiter\\blocklimiter\\utility\\recounttimer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|c:\\users\\jonathon\\documents\\github\\blocklimiter\\blocklimiter\\utility\\nexusapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\utility\\nexusapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|c:\\users\\jonathon\\documents\\github\\blocklimiter\\blocklimiter\\utility\\recounttimer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\utility\\recounttimer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\blocklimiter\\settings\\playertimemodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\blocklimiter\\settings\\playertimemodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\settings\\playertimemodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\blocklimiter\\manifest.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\blocklimiter\\manifest.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\manifest.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\blocklimiter\\patch\\blockownershiptransfer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\blocklimiter\\patch\\blockownershiptransfer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\patch\\blockownershiptransfer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\blocklimiter\\settings\\blocklimiterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\blocklimiter\\settings\\blocklimiterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\settings\\blocklimiterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\blocklimiter\\blocklimiter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\blocklimiter\\blocklimiter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\blocklimiter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Utility\\NexusSync.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BlockLimiter\\Utility\\NexusSync.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Utility\\NexusSync.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -43,24 +46,37 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "NexusAPI.cs",
+              "DocumentMoniker": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Utility\\NexusAPI.cs",
+              "RelativeDocumentMoniker": "BlockLimiter\\Utility\\NexusAPI.cs",
+              "ToolTip": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Utility\\NexusAPI.cs",
+              "RelativeToolTip": "BlockLimiter\\Utility\\NexusAPI.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-08T23:34:23.38Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "RecountTimer.cs",
-              "DocumentMoniker": "C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Utility\\RecountTimer.cs",
+              "DocumentMoniker": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Utility\\RecountTimer.cs",
               "RelativeDocumentMoniker": "BlockLimiter\\Utility\\RecountTimer.cs",
-              "ToolTip": "C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Utility\\RecountTimer.cs",
+              "ToolTip": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Utility\\RecountTimer.cs",
               "RelativeToolTip": "BlockLimiter\\Utility\\RecountTimer.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAUwB8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-31T18:18:23.813Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "NexusSync.cs",
               "DocumentMoniker": "C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Utility\\NexusSync.cs",
-              "RelativeDocumentMoniker": "BlockLimiter\\Utility\\NexusSync.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Utility\\NexusSync.cs",
               "ToolTip": "C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Utility\\NexusSync.cs",
-              "RelativeToolTip": "BlockLimiter\\Utility\\NexusSync.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Utility\\NexusSync.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABQAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-03T20:24:17.046Z"
@@ -71,11 +87,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "PlayerTimeModule.cs",
-              "DocumentMoniker": "C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Settings\\PlayerTimeModule.cs",
+              "DocumentMoniker": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Settings\\PlayerTimeModule.cs",
               "RelativeDocumentMoniker": "BlockLimiter\\Settings\\PlayerTimeModule.cs",
-              "ToolTip": "C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Settings\\PlayerTimeModule.cs",
+              "ToolTip": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Settings\\PlayerTimeModule.cs",
               "RelativeToolTip": "BlockLimiter\\Settings\\PlayerTimeModule.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -83,11 +99,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "BlockLimiter.cs",
-              "DocumentMoniker": "C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\BlockLimiter.cs",
+              "DocumentMoniker": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\BlockLimiter.cs",
               "RelativeDocumentMoniker": "BlockLimiter\\BlockLimiter.cs",
-              "ToolTip": "C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\BlockLimiter.cs",
+              "ToolTip": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\BlockLimiter.cs",
               "RelativeToolTip": "BlockLimiter\\BlockLimiter.cs",
               "ViewState": "AgIAACUAAAAAAAAAAAAAAEMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -95,11 +111,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "BlockLimiterConfig.cs",
-              "DocumentMoniker": "C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Settings\\BlockLimiterConfig.cs",
+              "DocumentMoniker": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Settings\\BlockLimiterConfig.cs",
               "RelativeDocumentMoniker": "BlockLimiter\\Settings\\BlockLimiterConfig.cs",
-              "ToolTip": "C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Settings\\BlockLimiterConfig.cs",
+              "ToolTip": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Settings\\BlockLimiterConfig.cs",
               "RelativeToolTip": "BlockLimiter\\Settings\\BlockLimiterConfig.cs",
               "ViewState": "AgIAADkAAAAAAAAAAAAiwGAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -107,11 +123,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "BlockOwnershipTransfer.cs",
-              "DocumentMoniker": "C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Patch\\BlockOwnershipTransfer.cs",
+              "DocumentMoniker": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Patch\\BlockOwnershipTransfer.cs",
               "RelativeDocumentMoniker": "BlockLimiter\\Patch\\BlockOwnershipTransfer.cs",
-              "ToolTip": "C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Patch\\BlockOwnershipTransfer.cs",
+              "ToolTip": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\Patch\\BlockOwnershipTransfer.cs",
               "RelativeToolTip": "BlockLimiter\\Patch\\BlockOwnershipTransfer.cs",
               "ViewState": "AgIAABQAAAAAAAAAAAAAADEAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -119,11 +135,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "manifest.xml",
-              "DocumentMoniker": "C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\manifest.xml",
+              "DocumentMoniker": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\manifest.xml",
               "RelativeDocumentMoniker": "BlockLimiter\\manifest.xml",
-              "ToolTip": "C:\\Users\\jonat\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\manifest.xml",
+              "ToolTip": "C:\\Users\\jonathon\\Documents\\GitHub\\BlockLimiter\\BlockLimiter\\manifest.xml",
               "RelativeToolTip": "BlockLimiter\\manifest.xml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",

@@ -24,7 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>8.0</LangVersion>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -71,11 +71,11 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="ProtoBuf.Net">
-      <HintPath>..\..\..\SEToolbox\ProtoBuf.Net.dll</HintPath>
+    <Reference Include="protobuf-net">
+      <HintPath>packages\protobuf-net.3.2.46\lib\net462\protobuf-net.dll</HintPath>
     </Reference>
-    <Reference Include="ProtoBuf.Net.Core">
-      <HintPath>..\..\..\SEToolbox\ProtoBuf.Net.Core.dll</HintPath>
+    <Reference Include="protobuf-net.Core">
+      <HintPath>packages\protobuf-net.Core.3.2.46\lib\net462\protobuf-net.Core.dll</HintPath>
     </Reference>
     <Reference Include="Sandbox.Common">
       <HintPath>..\GameBinaries\Sandbox.Common.dll</HintPath>
@@ -135,7 +135,23 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers">
+      <HintPath>packages\System.Buffers.4.6.0\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable">
+      <HintPath>packages\System.Collections.Immutable.9.0.1\lib\net462\System.Collections.Immutable.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Memory">
+      <HintPath>packages\System.Memory.4.6.0\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>packages\System.Numerics.Vectors.4.6.0\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.1.0\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Presentation" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -260,6 +276,7 @@
     <Compile Include="Utility\GridCache.cs" />
     <Compile Include="Settings\LimitItem.cs" />
     <Compile Include="Utility\MTObservableCollection.cs" />
+    <Compile Include="Utility\NexusAPI.cs" />
     <Compile Include="Utility\NexusSupport.cs" />
     <Compile Include="Utility\RecountTimer.cs" />
     <Compile Include="Utility\UpdateLimits.cs" />
@@ -270,7 +287,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="C:\Users\jonat\Documents\GitHub\BlockLimiter\BlockLimiter\filter.targets" />
+  <Import Project="C:\Users\jonathon\Documents\GitHub\BlockLimiter\BlockLimiter\filter.targets" />
   <ItemGroup>
     <Content Include="$(ProjectDir)\manifest.xml" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\.idea\.idea.BlockLimiter\.idea\.gitignore">

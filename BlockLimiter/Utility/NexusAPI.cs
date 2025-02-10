@@ -1,249 +1,398 @@
 ﻿using ProtoBuf;
+using Sandbox.ModAPI;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VRage.Game;
+using VRage;
 using VRageMath;
+using BlockLimiter.Utility;
+using BlockLimiter.Settings;
 
-namespace Nexus.API
+namespace BlockLimiter.Utility
 {
     public class NexusAPI
     {
-        public ushort CrossServerModId;
+        private const long MessageId = 20240902;
 
-        public NexusAPI(ushort socketID)
+        public List<Cluster> Clusters { get; private set; }
+
+        public List<Server> Servers { get; private set; }
+
+        public List<Sector> Sectors { get; private set; }
+
+        public byte CurrentServerID { get; private set; }
+
+        public byte CurrentClusterID { get; private set; }
+        
+        /// <summary>
+        /// True when the API has connected to the Nexus Plugin
+        /// Will always be false on clients.
+        /// </summary>
+        public bool Enabled { get; private set; }
+        private Action onEnabled;
+
+        /// <summary>
+        /// Call Unload() when done to unregister message handlers. 
+        /// Check Enabled to see if the API is communicating with Nexus.
+        /// Can only be used on the server, will not work on the client.
+        /// </summary>
+        /// <param name="onEnabled">Called once the API has connected to Nexus.</param>
+        public NexusAPI(Action onEnabled = null)
         {
-            CrossServerModId = socketID;
+            this.onEnabled = onEnabled;
+            
+            MyAPIGateway.Utilities.RegisterMessageHandler(MessageId, ReceiveData);
         }
 
-        public static bool IsRunningNexus()
+        /// <summary>
+        /// Call this method to cleanup once you are done with the Nexus API.
+        /// </summary>
+        public void Unload()
         {
-            return true;
+            Enabled = false;
+            isPlayerOnline = null;
+            getTargetServer = null;
+            getTargetSector = null;
+            isServerOnline = null;
+            sendModMsgToServer = null;
+            sendModMsgToAllServers = null;
+            getAllOnlineServers = null;
+            getAllOnlinePlayers = null;
+            sendChatToDiscord = null;
+            onEnabled = null;
+            MyAPIGateway.Utilities.UnregisterMessageHandler(MessageId, ReceiveData);
         }
 
-        public static bool IsPlayerOnline(long identityId)
+        private void ReceiveData(object obj)
         {
+            try
+            {
+                var data = (MyTuple<byte[], Func<int, Func<object, object>>>)obj;
+                var getMethod = data.Item2;
+
+                isPlayerOnline = getMethod((int)Methods.IsPlayerOnline);
+                getTargetServer = getMethod((int)Methods.GetTargetServer);
+                getTargetSector = getMethod((int)Methods.GetTargetSector);
+                isServerOnline = getMethod((int)Methods.IsServerOnline);
+                sendModMsgToServer = getMethod((int)Methods.SendModMsgToServer);
+                sendModMsgToAllServers = getMethod((int)Methods.SendModMsgToAllServers);
+                getAllOnlineServers = getMethod((int)Methods.GetAllOnlineServers);
+                getAllOnlinePlayers = getMethod((int)Methods.GetAllOnlinePlayers);
+                sendChatToDiscord = getMethod((int)Methods.SendChatToDiscord);
+                remoteSpawnPadActivation = getMethod((int)Methods.RemoteSpawnPadActivation);
+
+                ServerDataMsgAPI serverData = MyAPIGateway.Utilities.SerializeFromBinary<ServerDataMsgAPI>(data.Item1);
+                Clusters = serverData.clusters;
+                Servers = serverData.servers;
+                Sectors = serverData.sectors;
+                CurrentServerID = serverData.thisServerId;
+                CurrentClusterID = serverData.thisClusterID;
+
+                Enabled = true;
+                onEnabled?.Invoke();
+            }
+            catch
+            { }
+        }
+
+        public Server GetThisServer()
+        {
+            return Servers?.FirstOrDefault(s => s.ServerID == CurrentServerID);
+        }
+
+        public List<Server> GetAllServers()
+        {
+            return Servers;
+        }
+
+        /// <summary>
+        /// Checks to see if a specific player is online
+        /// </summary>
+        /// <param name="playerId"></param>
+        /// <returns></returns>
+        public bool IsPlayerOnline(ulong playerId)
+        {
+            return Enabled && (bool)isPlayerOnline(playerId);
+        }
+        private Func<object, object> isPlayerOnline;
+
+        public bool IsRunningNexus()
+        {
+            return Enabled;
+        }
+
+        /// <summary>
+        /// Gets target serverID of a position
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public byte GetTargetServer(Vector3D position)
+        {
+            if (Enabled)
+                return (byte)getTargetServer(position);
+            return byte.MinValue;
+        }
+        private Func<object, object> getTargetServer;
+
+        /// <summary>
+        /// Gets the target sectorID of a position.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public int GetTargetSector(Vector3D position)
+        {
+            if (Enabled)
+                return (int)getTargetSector(position);
+            return int.MinValue;
+        }
+        private Func<object, object> getTargetSector;
+
+        /// <summary>
+        /// Checks to see if the Target ServerID is online
+        /// </summary>
+        /// <param name="serverID"></param>
+        /// <returns></returns>
+        public bool IsServerOnline(byte serverID)
+        {
+            return Enabled && (bool)isServerOnline(serverID);
+        }
+        private Func<object, object> isServerOnline;
+
+
+        /// <summary>
+        /// Send a specific Mod Message to a Target Nexus server
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="modChannelID"></param>
+        /// <param name="targetServer"></param>
+        /// <returns></returns>
+        public bool SendModMsgToServer(byte[] data, long modChannelID, byte targetServer)
+        {
+            return Enabled && (bool)sendModMsgToServer(MyTuple.Create(data, modChannelID, targetServer));
+        }
+        private Func<object, object> sendModMsgToServer;
+
+        /// <summary>
+        /// Send a specific Mod Message to a ALL ONLINE nexus servers. =
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="modChannelID"></param>
+        /// <returns></returns>
+        public bool SendModMsgToAllServers(byte[] data, long modChannelID)
+        {
+            return Enabled && (bool)sendModMsgToAllServers(MyTuple.Create(data, modChannelID));
+        }
+        private Func<object, object> sendModMsgToAllServers;
+
+        /// <summary>
+        /// Gets a list of all online nexus servers tied to the controller
+        /// </summary>
+        /// <returns></returns>
+        public List<byte> GetAllOnlineServers()
+        {
+            if (Enabled)
+                return (List<byte>)getAllOnlineServers(null);
+            return null;
+        }
+        private Func<object, object> getAllOnlineServers;
+
+        /// <summary>
+        /// Gets a list of all online players across the nexus controller
+        /// </summary>
+        /// <returns></returns>
+        public List<ulong> GetAllOnlinePlayers()
+        {
+            if (Enabled)
+                return (List<ulong>)getAllOnlinePlayers(null);
+            return null;
+        }
+        private Func<object, object> getAllOnlinePlayers;
+
+        /// <summary>
+        /// Sends a message directly to discord.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="discordChannelID"></param>
+        /// <param name="isEmbed"></param>
+        /// <param name="EmbedTitle"></param>
+        /// <param name="EmbedFooter"></param>
+        public void SendChatToDiscord(string message, ulong discordChannelID, bool isEmbed = false, string EmbedTitle = "", string EmbedFooter = "")
+        {
+            if (Enabled)
+                sendChatToDiscord(MyTuple.Create(message, discordChannelID, isEmbed, EmbedTitle, EmbedFooter));
+        }
+        private Func<object, object> sendChatToDiscord;
+
+        /// <summary>
+        /// Calls the spawn pad activation on and sends the user to the target server with the spawn request
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="targetServerID"></param>
+        /// <param name="scriptName"></param>
+        /// <param name="shipName"></param>
+        /// <param name="CustomData"></param>
+        /// <returns></returns>
+        public bool RemoteSpawnPadActivation(ulong user, byte targetServerID, string scriptName, string shipName, string CustomData)
+        {
+            if (Enabled)
+                return (bool)remoteSpawnPadActivation(MyTuple.Create(user, targetServerID, scriptName, shipName, CustomData));
             return false;
-        }
-
-        private static List<object[]> GetSectorsObject()
-        {
-            var apiSectors = new List<object[]>();
-            return apiSectors;
-        }
-
-        private static List<object[]> GetAllOnlinePlayersObject()
-        {
-            var onlinePlayers = new List<object[]>();
-            return onlinePlayers;
-        }
-
-        private static List<object[]> GetAllServersObject()
-        {
-            var servers = new List<object[]>();
-            return servers;
-
-        }
-        private static List<object[]> GetAllOnlineServersObject()
-        {
-            var servers = new List<object[]>();
-            return servers;
-
-        }
-
-        private static object[] GetThisServerObject()
-        {
-            var onlinePlayers = new object[6];
-            return onlinePlayers;
-        }
-
-        public static Server GetThisServer()
-        {
-            return new Server("Server1", 1, 1234, 100, 50, new List<ulong>());
-        }
-
-        public static List<Sector> GetSectors()
-        {
-            var objects = GetSectorsObject();
-
-            return objects.Select(obj => new Sector((string)obj[0], (string)obj[1], (int)obj[2], (bool)obj[3], (Vector3D)obj[4], (double)obj[5], (int)obj[6])).ToList();
-        }
-
-        public static int GetServerIdFromPosition(Vector3D position)
-        {
-            return 0;
-        }
-
-        public static List<Player> GetAllOnlinePlayers()
-        {
-            var objects = GetAllOnlinePlayersObject();
-            return objects.Select(obj => new Player((string)obj[0], (ulong)obj[1], (long)obj[2], (int)obj[3])).ToList();
-        }
-
-        public static IEnumerable<Server> GetAllServers()
-        {
-            return new List<Server> { new Server("Server1", 1, 1234, 100, 50, new List<ulong>()) };
-        }
-
-        public static List<Server> GetAllOnlineServers()
-        {
-            var objects = GetAllOnlineServersObject();
-            return objects.Select(obj => new Server((string)obj[0], (int)obj[1], (int)obj[2], (float)obj[3], (int)obj[4], (List<ulong>)obj[5])).ToList();
-        }
-
-        public static bool IsServerOnline(int serverId)
-        {
-            return false;
-        }
-
-        public static void BackupGrid(List<MyObjectBuilder_CubeGrid> gridObjectBuilders, long onwerIdentity)
-        {
-            
-        }
-
-        public static void SendChatMessageToDiscord(ulong channelId, string author, string message) { }
-
-        public static void SendEmbedMessageToDiscord(ulong channelId, string embedTitle, string embedMsg, string embedFooter, string embedColor = null) { }
-
-        public void SendMessageToServer(int serverId, byte[] message)
-        {
-            
-        }
-
-        public void SendMessageToAllServers(byte[] message)
-        {
-            
         }
 
         public void SendCrossServerMessage(string messageType, object data)
         {
-            // Implementation to send a cross-server message
+            // Implement the logic to send a cross-server message
         }
 
-        public class Sector
+        private Func<object, object> remoteSpawnPadActivation;
+
+        private enum Methods
         {
-            public readonly string Name;
-
-            public readonly string IpAddress;
-
-            public readonly int Port;
-
-            public readonly bool IsGeneralSpace;
-
-            public readonly Vector3D Center;
-
-            public readonly double Radius;
-
-            public readonly int ServerId;
-
-            public Sector(string name, string ipAddress, int port, bool isGeneralSpace, Vector3D center, double radius, int serverId)
-            {
-                this.Name = name;
-                this.IpAddress = ipAddress;
-                this.Port = port;
-                this.IsGeneralSpace = isGeneralSpace;
-                this.Center = center;
-                this.Radius = radius;
-                this.ServerId = serverId;
-            }
-
+            None = 0,
+            IsPlayerOnline,
+            GetTargetServer,
+            GetTargetSector,
+            IsServerOnline,
+            SendModMsgToServer,
+            SendModMsgToAllServers,
+            GetAllOnlineServers,
+            GetAllOnlinePlayers,
+            SendChatToDiscord,
+            SendChatToServers,
+            RemoteSpawnPadActivation
         }
 
-        public class Player
+        #region ServerData
+        [ProtoContract]
+        private class ServerDataMsgAPI
         {
+            [ProtoMember(10)]
+            public List<Cluster> clusters = new List<Cluster>();
 
-            public readonly string PlayerName;
+            [ProtoMember(20)]
+            public List<Server> servers = new List<Server>();
 
-            public readonly ulong SteamId;
+            [ProtoMember(30)]
+            public List<Sector> sectors = new List<Sector>();
 
-            public readonly long IdentityId;
+            [ProtoMember(40)]
+            public byte thisServerId;
 
-            public readonly int OnServer;
-
-            public Player(string playerName, ulong steamId, long identityId, int onServer)
-            {
-                this.PlayerName = playerName;
-                this.SteamId = steamId;
-                this.IdentityId = identityId;
-                this.OnServer = onServer;
-            }
-        }
-
-        public class Server
-        {
-            public string Name { get; }
-            public int ServerId { get; }
-            public short Port { get; }
-            public int MaxPlayers { get; }
-            public int CurrentPlayers { get; }
-            public List<ulong> PlayerIds { get; }
-
-            public Server(string name, int serverId, short port, int maxPlayers, int currentPlayers, List<ulong> playerIds)
-            {
-                Name = name;
-                ServerId = serverId;
-                Port = port;
-                MaxPlayers = maxPlayers;
-                CurrentPlayers = currentPlayers;
-                PlayerIds = playerIds;
-            }
-
-            public readonly int ServerType;
-            public readonly string ServerIp;
-
-            public readonly float ServerSs;
-            public readonly int TotalGrids;
-            public readonly List<ulong> ReservedPlayers;
-
-            /*  Possible Server Types
-             * 
-             *  0 - SyncedSectored
-             *  1 - SyncedNon-Sectored
-             *  2 - Non-Synced & Non-Sectored
-             * 
-             */
-
-            public Server(string name, int serverId, int serverType, string ip)
-            {
-                this.Name = name;
-                this.ServerId = serverId;
-                this.ServerType = serverType;
-                this.ServerIp = ip;
-            }
-
-            //Online Server
-            public Server(string name, int serverId, int maxPlayers, float simSpeed, int totalGrids, List<ulong> reservedPlayers)
-            {
-                this.Name = name;
-                this.ServerId = serverId;
-                this.MaxPlayers = maxPlayers;
-                this.ServerSs = simSpeed;
-                this.TotalGrids = totalGrids;
-                this.ReservedPlayers = reservedPlayers;
-            }
-
+            [ProtoMember(50)]
+            public byte thisClusterID;
         }
 
         [ProtoContract]
-        public class CrossServerMessage
+        public class Cluster
         {
+            public Cluster() { }
 
-            [ProtoMember(1)] public readonly int ToServerId;
-            [ProtoMember(2)] public readonly int FromServerId;
-            [ProtoMember(3)] public readonly ushort UniqueMessageId;
-            [ProtoMember(4)] public readonly byte[] Message;
-
-            public CrossServerMessage(ushort uniqueMessageId, int toServerId, int fromServerId, byte[] message)
-            {
-                this.UniqueMessageId = uniqueMessageId;
-                this.ToServerId = toServerId;
-                this.FromServerId = fromServerId;
-                this.Message = message;
-            }
-
-            public CrossServerMessage() { }
+            [ProtoMember(5)] public byte ClusterID { get; set; }
+            [ProtoMember(10), DefaultValue("New Cluster")] public string ClusterName { get; set; } = "New Cluster";
+            [ProtoMember(15), DefaultValue("Cluster Description")] public string ClusterDescription { get; set; } = "Cluster Description";
+            [ProtoMember(20)] public byte LobbyServerID { get; set; }
+            [ProtoMember(25), DefaultValue((ushort)10)] public ushort GeneralSectorID { get; set; } = 10;
         }
+
+        [ProtoContract]
+        public class Sector
+        {
+            [ProtoMember(1), DefaultValue("NewSector")]
+            public string SectorName { get; set; } = "NewSector";
+
+            [ProtoMember(2), DefaultValue("NewSectorDescription")]
+            public string SectorDescription { get; set; } = "NewSectorDescription";
+
+            [ProtoMember(3)]
+            public byte OnServerID { get; set; }
+
+            [ProtoMember(4), DefaultValue(SectorShape.Sphere)]
+            public SectorShape SectorShape { get; set; } = SectorShape.Sphere;
+
+            [ProtoMember(5)]
+            public double X { get; set; }
+
+            [ProtoMember(6)]
+            public double Y { get; set; }
+
+            [ProtoMember(7)]
+            public double Z { get; set; }
+
+            [ProtoMember(8)]
+            public double DX { get; set; }
+
+            [ProtoMember(9)]
+            public double DY { get; set; }
+
+            [ProtoMember(10)]
+            public double DZ { get; set; }
+
+            [ProtoMember(11)]
+            public float RadiusKM { get; set; }
+
+            [ProtoMember(12)]
+            public float RingRadiusKM { get; set; }
+
+            [ProtoMember(13)]
+            public ushort SectorID { get; set; }
+
+            [ProtoMember(14)]
+            public string SectorBoundaryScript { get; set; }
+
+            [ProtoMember(16)]
+            public bool HiddenSector { get; set; }
+
+            [ProtoMember(17), DefaultValue(true)]
+            public bool EnableSectorInfoProvider { get; set; } = true;
+
+            [ProtoMember(18)]
+            public SectorBorderTexture BorderTexture { get; set; }
+
+            [ProtoMember(19, IsRequired = true)]
+            public Color BorderColor { get; set; } = Color.White;
+
+            public Sector() { }
+        }
+
+        [ProtoContract]
+        public class Server
+        {
+            public Server() { }
+
+            [ProtoMember(1), DefaultValue("NewServer")] public string Name { get; set; } = "NewServer";
+            [ProtoMember(2), DefaultValue((byte)1)] public byte ServerID { get; set; } = 1;
+            [ProtoMember(3)] public byte OnClusterID { get; set; }
+            [ProtoMember(4), DefaultValue("127.0.0.1")] public string GameIPAddress { get; set; } = "127.0.0.1";
+            [ProtoMember(5), DefaultValue((ushort)27018)] public ushort GamePort { get; set; } = 27018;
+            [ProtoMember(6), DefaultValue(ServerType.SyncedSectored)] public ServerType SectorType { get; set; } = ServerType.SyncedSectored;
+            [ProtoMember(7)] public ushort SelectedConfigGroup { get; set; }
+            [ProtoMember(8), DefaultValue("XYZ")] public string ServerAbbreviation { get; set; } = "XYZ";
+            [ProtoMember(9), DefaultValue(0)] public byte LobbyServerID { get; set; } = 0;
+        }
+
+        public enum SectorShape
+        {
+            Sphere,
+            Cuboid,
+            Torus
+        }
+
+        public enum ServerType
+        {
+            SyncedSectored,
+            SyncedNonSectored,
+            NonSyncedNonSectored,
+            StartSyncedNonSectored
+        }
+
+        public enum SectorBorderTexture
+        {
+            Circle,
+            Cross,
+            Hex,
+        }
+
+        #endregion
     }
 }
